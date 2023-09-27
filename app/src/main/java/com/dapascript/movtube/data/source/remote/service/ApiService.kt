@@ -33,4 +33,11 @@ interface ApiService {
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = Companion.apiKey,
     ): VideoResponse
+
+    // search movie
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("query") query: String,
+        @Query("api_key") apiKey: String = Companion.apiKey,
+    ): MovieResponse
 }

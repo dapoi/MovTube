@@ -1,7 +1,9 @@
 package com.dapascript.movtube.presentation
 
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +18,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
+    private lateinit var searchView: SearchView
+
+    private var searchMovieListener: SearchMovieListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,11 +59,38 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 // navIcon click listener
-                setNavigationOnClickListener { navController.popBackStack() }
+                setNavigationOnClickListener {
+                    searchView.setQuery("", false)
+                    navController.popBackStack()
+                }
 
-                // disable menu except movie fragment
+                // set padding
+                if (destination.id == R.id.searchFragment) setPadding(0, 0, 20, 0)
+
+                // state menu
                 menu.findItem(R.id.action_search).isVisible = destination.id == R.id.movieFragment
+                menu.findItem(R.id.action_search_expand).isVisible =
+                    destination.id == R.id.searchFragment
                 menu.findItem(R.id.action_fav).isVisible = destination.id == R.id.movieFragment
+
+                // Get the search menu item
+                searchView = menu.findItem(R.id.action_search_expand).actionView as SearchView
+                searchView.queryHint = "Search Movie"
+                searchView.isIconified = false
+                searchView.setIconifiedByDefault(false)
+                searchView.setBackgroundResource(R.drawable.bg_round)
+                searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        searchMovieListener?.searchMovie(newText.toString())
+                        return false
+                    }
+                })
 
                 // action menu click listener
                 setOnMenuItemClickListener { item ->
@@ -68,10 +100,23 @@ class MainActivity : AppCompatActivity() {
                             true
                         }
 
+                        R.id.action_search -> {
+                            navController.navigate(NavGraphDirections.actionGlobalSearchFragment())
+                            true
+                        }
+
                         else -> false
                     }
                 }
             }
         }
+    }
+
+    fun setSearchMovieListener(listener: SearchMovieListener) {
+        searchMovieListener = listener
+    }
+
+    interface SearchMovieListener {
+        fun searchMovie(query: String)
     }
 }
