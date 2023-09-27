@@ -2,6 +2,7 @@
 ## Tech Stack
 - Single activity using jetpack navigation component
 - MVVM
+- Paging 3
 - Retrofit
 - Reactive programming using flow
 - Hilt
@@ -10,4 +11,4 @@
 - Safe args
 - Livedata
 - Unit test
-- Etc
+- Room database
