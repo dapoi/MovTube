@@ -35,6 +35,9 @@ android {
         jvmTarget = '17'
         freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     buildFeatures {
         viewBinding true
         buildConfig true
