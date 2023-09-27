@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import com.dapascript.movtube.data.source.MoviesMediator
 import com.dapascript.movtube.data.source.local.db.MovieDB
 import com.dapascript.movtube.data.source.local.model.MovieEntity
+import com.dapascript.movtube.data.source.local.model.MovieFavEntity
 import com.dapascript.movtube.data.source.remote.model.DetailResponse
 import com.dapascript.movtube.data.source.remote.model.VideoResponse
 import com.dapascript.movtube.data.source.remote.service.ApiService
@@ -54,10 +55,30 @@ class MovieRepositoryImpl @Inject constructor(
             emit(Resource.Error(e))
         }
     }.flowOn(coroutineDispatcher)
+
+    override suspend fun insertMovieToFavorite(movieFav: MovieFavEntity) {
+        movieDB.movieDao().insertFavorite(movieFav)
+    }
+
+    override suspend fun deleteMovieFromFavorite(movieFav: MovieFavEntity) {
+        movieDB.movieDao().deleteFavorite(movieFav)
+    }
+
+    override fun getFavorite(): Flow<List<MovieFavEntity>> = movieDB.movieDao().getFavorite()
+
+    override fun isFavorite(id: Int): Flow<Boolean> = movieDB.movieDao().isFavorite(id)
 }
 
 interface MovieRepository {
     fun getMovies(): Flow<PagingData<MovieEntity>>
     fun getDetailMovies(id: Int): Flow<Resource<DetailResponse>>
     fun getVideo(id: Int): Flow<Resource<VideoResponse>>
+
+    /**
+     * favorite
+     */
+    suspend fun insertMovieToFavorite(movieFav: MovieFavEntity)
+    suspend fun deleteMovieFromFavorite(movieFav: MovieFavEntity)
+    fun getFavorite(): Flow<List<MovieFavEntity>>
+    fun isFavorite(id: Int): Flow<Boolean>
 }

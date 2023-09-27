@@ -18,9 +18,21 @@
         android:id="@+id/detailMovieFragment"
         android:name="com.dapascript.movtube.presentation.ui.detail.DetailMovieFragment"
         android:label="fragment_detail_movie"
-        tools:layout="@layout/fragment_detail_movie" >
+        tools:layout="@layout/fragment_detail_movie">
         <argument
             android:name="movieId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/movieFavoriteFragment"
+        android:name="com.dapascript.movtube.presentation.ui.list.MovieFavoriteFragment"
+        android:label="fragment_movie_favorite"
+        tools:layout="@layout/fragment_movie_favorite">
+        <action
+            android:id="@+id/action_movieFavoriteFragment_to_detailMovieFragment"
+            app:destination="@id/detailMovieFragment" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_movieFavoriteFragment"
+        app:destination="@id/movieFavoriteFragment" />
 </navigation>

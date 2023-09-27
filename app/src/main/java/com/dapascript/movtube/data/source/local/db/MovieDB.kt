@@ -5,10 +5,11 @@ import androidx.room.RoomDatabase
 import com.dapascript.movtube.data.source.local.dao.MovieDao
 import com.dapascript.movtube.data.source.local.dao.MovieKeysDao
 import com.dapascript.movtube.data.source.local.model.MovieEntity
+import com.dapascript.movtube.data.source.local.model.MovieFavEntity
 import com.dapascript.movtube.data.source.local.model.MovieKeys
 
 @Database(
-    entities = [MovieEntity::class, MovieKeys::class],
+    entities = [MovieEntity::class, MovieKeys::class, MovieFavEntity::class],
     version = 1,
     exportSchema = false
 )
