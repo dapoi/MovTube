@@ -16,5 +16,5 @@
 
 # Note
 ```
-Note : Video player doesn't work on emulator, please use real device
+Video player doesn't work on emulator, please use real device
 ```
