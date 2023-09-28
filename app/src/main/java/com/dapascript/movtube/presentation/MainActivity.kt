@@ -2,14 +2,17 @@ package com.dapascript.movtube.presentation
 
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.dapascript.movtube.NavGraphDirections
 import com.dapascript.movtube.R
 import com.dapascript.movtube.databinding.ActivityMainBinding
+import com.dapascript.movtube.presentation.viewmodel.SplashScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,8 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     private var searchMovieListener: SearchMovieListener? = null
 
+    private val splashScreenViewModel: SplashScreenViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        installSplashScreen().setKeepOnScreenCondition { splashScreenViewModel.keepRunning.value }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

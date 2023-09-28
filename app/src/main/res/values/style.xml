@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- api splashscreen. -->
+    <style name="Theme.SplashScreen.Api" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_movie</item>
+        <item name="windowSplashScreenBackground">#6750A4</item>
+        <item name="postSplashScreenTheme">@style/Theme.MovTube</item>
+    </style>
+</resources>
