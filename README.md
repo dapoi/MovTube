@@ -3,6 +3,7 @@
 - Single activity using jetpack navigation component
 - MVVM
 - Paging 3
+- Splashscreen API
 - Retrofit
 - Reactive programming using flow
 - Hilt
@@ -12,3 +13,8 @@
 - Livedata
 - Unit test
 - Room database
+
+# Note
+```
+Note : Video player doesn't work on emulator, please use real device
+```
