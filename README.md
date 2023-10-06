@@ -4,6 +4,8 @@
 - MVVM
 - Paging 3
 - Splashscreen API
+- Kotlin DSL
+- BuildSrc
 - Retrofit
 - Reactive programming using flow
 - Hilt
