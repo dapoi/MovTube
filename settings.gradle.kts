@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "MovTube"
-include ':app'
+include(":app")
